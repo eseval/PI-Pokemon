@@ -39,10 +39,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    created: {
-      typr: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
-    }
+    // created: {
+    //   typr: DataTypes.BOOLEAN,
+    //   allowNull: false,
+    //   defaultValue: true,
+    // }
   });
 };
