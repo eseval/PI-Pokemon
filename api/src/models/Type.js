@@ -10,12 +10,12 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-      },
+      // id: {
+      //   type: DataTypes.UUID,
+      //   defaultValue: DataTypes.UUIDV4,
+      //   allowNull: false,
+      //   primaryKey: true,
+      // },
     },
     {
       timestamps: false, //false para evitar la creacion en la bd

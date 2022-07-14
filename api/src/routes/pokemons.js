@@ -112,29 +112,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// router.post("/", async (req, res, next) => {
-//   const { name, hp, attack, defense, speed, height, weight, image, types } =
-//     req.body;
-//   console.log("req.body: --------->" + req.body);
-//   try {
-//     const pokemonsCreated = await Pokemon.create({
-//       name,
-//       hp,
-//       attack,
-//       defense,
-//       speed,
-//       height,
-//       weight,
-//       image,
-//     });
-//     // console.log("Pokemons created: ------->" + pokemonsCreated);
-//     const typesDb = await Type.findAll({ where: { name: types } });
-//     pokemonsCreated.addType(typesDb);
-//     res.send("Pokemon created");
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 router.post("/", async (req, res, next) => {
   const { name, hp, attack, defense, speed, height, weight, image, types } =
