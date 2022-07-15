@@ -77,7 +77,7 @@ export function getTypes() {
   };
 }
 
-export function filterPokemonByType(payload) {
+export function filterPokemonsByType(payload) {
   return {
     type: "FILTER_BY_TYPE",
     payload,

@@ -21,13 +21,18 @@ export default function Detail() {
     <div>
       <div>
         <h1>{details.name}</h1>
-        <img src={details[0]?.image} alt="pokemon" width="200px" height="200px" />
+        <img
+          src={details[0]?.image}
+          alt="pokemon"
+          width="200px"
+          height="200px"
+        />
       </div>
       <div>
         <h2>Types</h2>
         <ul>
           {details[0]?.types.map((type, i) => (
-            <li key={i}>{type}</li>
+            <li key={i}>{type.replace(type[0], type[0].toUpperCase())}</li>
           ))}
         </ul>
       </div>

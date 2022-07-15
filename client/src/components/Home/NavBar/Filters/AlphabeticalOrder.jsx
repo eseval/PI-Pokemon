@@ -15,9 +15,9 @@ export default function AlphabeticalOrder() {
     <div>
       <div>Alphabetical Order</div>
       <select onChange={(e) => handleOnChange(e)}>
-        <option value="All">All</option>
-        <option value="Asc">Asc</option>
-        <option value="Desc">Desc</option>
+        <option value="All">Default</option>
+        <option value="Asc">Ascending</option>
+        <option value="Desc">Descending</option>
       </select>
     </div>
   );

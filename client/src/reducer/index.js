@@ -49,10 +49,10 @@ export default function rootReducer(state = initialState, action) {
     case "ORDER_BY_NAME":
       let allPoke = [...state.pokemons];
       allPoke = allPoke.sort((a, b) => {
-        if (a.name.toLoweCase() < b.name.toLoweCase()) {
+        if (a.name.toLowerCase() < b.name.toLowerCase()) {
           return action.payload === "Asc" ? -1 : 1;
         }
-        if (a.name.toLoweCase() > b.name.toLoweCase()) {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
           return action.payload === "Desc" ? -1 : 1;
         } else {
           return 0;

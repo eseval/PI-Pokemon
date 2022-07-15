@@ -3,7 +3,7 @@ import Card from "./Card/Card";
 import "./Cards.css";
 
 export default function Cards({ allPokemons }) {
-  console.log(allPokemons);
+  // console.log(allPokemons);
   return (
     <div>
       {allPokemons.length !== 0 ? allPokemons.map((pokemon, i) => (

@@ -48,9 +48,9 @@ export default function Home() {
   return (
     <div>
       <br />
-      <div>{/* <SearchBar /> */}</div>
+      <div><SearchBar /></div>
 
-      <a href="/dog">
+      <a href="/pokemon">
         <img src={incubator} alt="create" width="60px" height="60px" />
       </a>
 
@@ -64,10 +64,10 @@ export default function Home() {
         Refresh
       </button>
       <div>
-        {/* <ByAttack /> */}
+        <ByAttack />
         <AlphabeticalOrder />
-        {/* <ByType /> */}
-        {/* <ByCreation /> */}
+        <ByType />
+        <ByCreation />
       </div>
       <div>
         {/* <Paginated
