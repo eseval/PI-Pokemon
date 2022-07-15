@@ -10,6 +10,7 @@ import AlphabeticalOrder from "./NavBar/Filters/AlphabeticalOrder";
 import { getTypes, getPokemons } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import Paginated from "./Paginated/Paginated";
+import incubator from "./../../images/incubator.jpg";
 
 export default function Home() {
   const allPokemons = useSelector((state) => state.pokemons);
@@ -46,10 +47,14 @@ export default function Home() {
 
   return (
     <div>
-      <div>
-        {/* <SearchBar /> */}
-      </div>
-      <Link to="/dog">Create a new Pokemon</Link>
+      <br />
+      <div>{/* <SearchBar /> */}</div>
+
+      <a href="/dog">
+        <img src={incubator} alt="create" width="60px" height="60px" />
+      </a>
+
+      {/* <Link to="/dog">Create a new Pokemon</Link> */}
       <h1>Let's catch them all</h1>
       <button
         onClick={(e) => {
@@ -75,6 +80,7 @@ export default function Home() {
       <div>
         <Cards allPokemons={currentPokemons} />
       </div>
+      <br />
     </div>
   );
 }
