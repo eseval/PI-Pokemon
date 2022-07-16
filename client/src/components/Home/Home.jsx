@@ -70,12 +70,12 @@ export default function Home() {
         <ByCreation />
       </div>
       <div>
-        {/* <Paginated
+        <Paginated
           pokemonsPerPage={pokemonsPerPage}
           allPokemons={allPokemons}
           paginado={paginado}
           currentPage={currentPage}
-        /> */}
+        />
       </div>
       <div>
         <Cards allPokemons={currentPokemons} />

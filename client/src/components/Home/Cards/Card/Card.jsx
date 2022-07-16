@@ -9,7 +9,7 @@ export default function Card({ image, name, type, attack, id }) {
     <div>
       <div>
         <Link to={`/pokemons/${id}`}>
-          <h1>{name.replace(name[0], name[0].toUpperCase())}</h1>
+          <h1>{name}</h1>
         </Link>
       </div>
       <img
@@ -20,7 +20,7 @@ export default function Card({ image, name, type, attack, id }) {
       />
       <div>
         {type.map((type, i) => (
-          <p key={i}>{type.replace(type[0], type[0].toUpperCase())}</p>
+          <p key={i}>{type}</p>
         ))}
       </div>
     </div>

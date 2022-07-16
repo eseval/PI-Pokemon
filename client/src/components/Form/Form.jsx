@@ -1,105 +1,122 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { getTypes, postPokemon } from "../../actions";
+import { getTypes, postPokemon, getPokemons } from "../../actions";
 import { Link, useHistory } from "react-router-dom";
-import './Form.css';
+import "./Form.css";
+
+function validate(input) {}
 
 export default function Form() {
   const dispatch = useDispatch();
+  const allTypes = useSelector((state) => state.types);
+  let allPokemons = useSelector((state) => state.allPokemons);
+
+  const [errors, setErrors] = useState({});
   const history = useHistory();
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [attack, setAttack] = useState("");
-  const [image, setImage] = useState("");
-  const [error, setError] = useState("");
-  const types = useSelector((state) => state.types);
-  const allPokemons = useSelector((state) => state.pokemons);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pokemonsPerPage] = useState(12);
-  const indexOfLastPokemon = currentPage * pokemonsPerPage;
-  const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
-  const currentPokemons = allPokemons.slice(
-    indexOfFirstPokemon,
-    indexOfLastPokemon
-  );
 
-  if (
-    currentPage > Math.ceil(allPokemons.length / pokemonsPerPage) &&
-    currentPage !== 1
-  ) {
-    setCurrentPage(1);
-  }
-
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (name === "" || type === "" || attack === "" || image === "") {
-      setError("Please fill all the fields");
-    } else {
-      dispatch(postPokemon(name, type, attack, image));
-      history.push("/");
-    }
-  }
   useEffect(() => {
+    dispatch(getPokemons());
     dispatch(getTypes());
   }, [dispatch]);
+
+  const [input, setInput] = useState({
+    name: "",
+    hp: "",
+    attack: "",
+    defense: "",
+    speed: "",
+    height: "",
+    weight: "",
+    types: [],
+    image: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(postPokemon(input));
+    alert("Pokemon added successfully");
+    setInput({
+      name: "",
+      hp: "",
+      attack: "",
+      defense: "",
+      speed: "",
+      height: "",
+      weight: "",
+      types: [],
+      image: "",
+    });
+    history.push("/home");
+  };
+
+  function handleChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    setErrors(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
+  }
+
+  function handleTypeSelect(e) {
+    if (e.target.checked) {
+      setInput({
+        ...input,
+        types: [...input.types, e.target.value],
+      });
+      setErrors(
+        validate({
+          ...input,
+          types: [...input.types, e.target.value],
+        })
+      );
+    } else {
+      let filt = [...input.types];
+      filt.splice(filt.indexOf(e.target.value), 1);
+      setInput({
+        ...input,
+        types: filt,
+      });
+      setErrors(
+        validate({
+          ...input,
+          types: filt,
+        })
+      );
+    }
+  }
+
   return (
-    <div className="form">
-      <h1>Create a new Pokemon</h1>
+    <div>
+      <div>
+        <Link to="./home">
+          <button>To Home</button>
+        </Link>
+      </div>
+      <h1>Create your own Pokemon</h1>
+      <br />
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+        <div>
+          <div>
+            <label>Name: </label>
+            <input
+              type="text"
+              name="name"
+              value={input.name}
+              onChange={(e) => handleChange(e)}
+            />
+            {errors.name && <p>{errors.name}</p>}
+          </div>
+          <br />
+          <div>
+            
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="type">Type</label>
-          <select
-            className="form-control"
-            id="type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value="">Select a type</option>
-            {types.map((type) => (
-              <option key={type.id} value={type.name}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="attack">Attack</label>
-          <input
-            type="text"
-            className="form-control"
-            id="attack"
-            value={attack}
-            onChange={(e) => setAttack(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="image">Image</label>
-          <input
-            type="text"
-            className="form-control"
-            id="image"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
       </form>
-      <div>{error}</div>
     </div>
   );
 }
