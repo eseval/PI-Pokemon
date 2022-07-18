@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Card.css";
-import img from "../../../../images/pokeball.jpeg";
+import img from "../../../../images/unknown.png";
 
 export default function Card({ image, name, type, attack, id }) {
   // console.log(type);
@@ -9,7 +9,7 @@ export default function Card({ image, name, type, attack, id }) {
     <div>
       <div>
         <Link to={`/pokemons/${id}`}>
-          <h1>{name}</h1>
+          <h1>{name.replace(name[0], name[0].toUpperCase())}</h1>
         </Link>
       </div>
       <img
@@ -19,18 +19,9 @@ export default function Card({ image, name, type, attack, id }) {
         height="150px"
       />
       <div>
-        {/* {type.map((type, i) => (
-          <p key={i}>{type}</p>
-        ))} */}
-
-  {/* {temperament ? temperament?.map((e => {
-              if(typeof(e) === 'string') return (<span key={e}>{e + ', '}</span>)
-              else return (<span key={e.name}>{e.name + ', '}</span>)
-          })) : 'This breed does not have recorded temperaments'} */}
-
         {type ? type?.map((type => {
-          if(typeof(type) === 'string') return (<span key={type}>{type}</span>)
-          else return (<span key={type.name}>'Type'</span>)
+          if(typeof(type) === 'string') return (<li key={type}>{type.replace(type[0], type[0].toUpperCase())}</li>)
+          else return (<li key={type.name}>{type.name.replace(type.name[0], type.name[0].toUpperCase())}</li>)
         })): 'No types found'}
       </div>
     </div>
