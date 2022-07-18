@@ -32,7 +32,7 @@ const getApiInfo = async () => {
       speed: e.data.stats[5]["base_stat"],
       height: e.data.height,
       weight: e.data.weight,
-      image: e.data.sprites.other.home.front_default,
+      image: e.data.sprites.other["official-artwork"].front_default,
       types: e.data.types.map((e) => e.type.name),
     };
   });

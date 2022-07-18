@@ -15,9 +15,9 @@ import axios from "axios";
 // }
 
 export function getPokemons() {
-  return function (dispatch) {
+  return async function (dispatch) {
     try {
-      axios.get("/pokemons").then(function (json) {
+      await axios.get("/pokemons").then(function (json) {
         return dispatch({
           type: "GET_POKEMONS",
           payload: json.data,

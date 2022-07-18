@@ -19,9 +19,19 @@ export default function Card({ image, name, type, attack, id }) {
         height="150px"
       />
       <div>
-        {type.map((type, i) => (
+        {/* {type.map((type, i) => (
           <p key={i}>{type}</p>
-        ))}
+        ))} */}
+
+  {/* {temperament ? temperament?.map((e => {
+              if(typeof(e) === 'string') return (<span key={e}>{e + ', '}</span>)
+              else return (<span key={e.name}>{e.name + ', '}</span>)
+          })) : 'This breed does not have recorded temperaments'} */}
+
+        {type ? type?.map((type => {
+          if(typeof(type) === 'string') return (<span key={type}>{type}</span>)
+          else return (<span key={type.name}>'Type'</span>)
+        })): 'No types found'}
       </div>
     </div>
   );
