@@ -19,7 +19,7 @@ const PokemonCreate = () => {
     height: "",
     weight: "",
     types: [],
-    img: "",
+    image: "",
   });
 
   let noEmpty = /\S+/;
@@ -55,8 +55,8 @@ const PokemonCreate = () => {
     if (!validateNum.test(input.weight) || parseInt(input.weight) < 1) {
       errors.weight = "Number required. Higher than one";
     }
-    if (!validateUrl.test(input.img)) {
-      errors.img = "URL required";
+    if (!validateUrl.test(input.image)) {
+      errors.image = "URL required";
     }
 
     return errors;
@@ -98,7 +98,7 @@ const PokemonCreate = () => {
       !errors.speed &&
       !errors.height &&
       !errors.weight &&
-      !errors.img
+      !errors.image
     ) {
       dispatch(postPokemon(input));
       setInput({
@@ -110,7 +110,7 @@ const PokemonCreate = () => {
         height: "",
         weight: "",
         types: [],
-        img: "",
+        image: "",
       });
       // dispatch(cleanPokemons(dispatch));
       history.push("/home");
@@ -145,7 +145,6 @@ const PokemonCreate = () => {
           <div>
             <label>Name:</label>
             <input
-              className={input}
               type="text"
               value={input.name}
               name="name"
@@ -157,7 +156,6 @@ const PokemonCreate = () => {
             <p>{errors.name}</p>
             <label>HP:</label>
             <input
-              className={input}
               type="number"
               value={input.hp}
               name="hp"
@@ -169,7 +167,6 @@ const PokemonCreate = () => {
             <p>{errors.hp}</p>
             <label>Attack:</label>
             <input
-              className={input}
               type="number"
               value={input.attack}
               name="attack"
@@ -181,7 +178,6 @@ const PokemonCreate = () => {
             <p>{errors.attack}</p>
             <label>Defense:</label>
             <input
-              className={input}
               type="number"
               value={input.defense}
               name="defense"
@@ -195,7 +191,6 @@ const PokemonCreate = () => {
           <div>
             <label>Speed:</label>
             <input
-              className={input}
               type="number"
               value={input.speed}
               name="speed"
@@ -207,7 +202,6 @@ const PokemonCreate = () => {
             <p>{errors.speed}</p>
             <label>Height:</label>
             <input
-              className={input}
               type="number"
               value={input.height}
               name="height"
@@ -219,7 +213,6 @@ const PokemonCreate = () => {
             <p>{errors.height}</p>
             <label>Weight:</label>
             <input
-              className={input}
               type="number"
               value={input.weight}
               name="weight"
@@ -231,16 +224,15 @@ const PokemonCreate = () => {
             <p>{errors.weight}</p>
             <label>Image:</label>
             <input
-              className={input}
-              type="text"
-              value={input.img}
-              name="img"
+              type="url"
+              value={input.image}
+              name="image"
               onChange={(e) => {
                 handleChange(e);
               }}
               placeholder="URL Image..."
             />
-            <p>{errors.img}</p>
+            <p>{errors.image}</p>
           </div>
         </div>
         <div>

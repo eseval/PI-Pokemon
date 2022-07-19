@@ -14,7 +14,7 @@ export default function ByType() {
   }
 
   return (
-    <div className="ByType">
+    <div>
       <div>By Type</div>
       <select onChange={handleOnChange}>
         <option value="All">All</option>

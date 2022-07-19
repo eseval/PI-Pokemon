@@ -31,6 +31,7 @@ export default function SearchBar() {
       <div>
         <input
           type="text"
+          // placeholder="Search for a pokemon"
           placeholder="Search for a pokemon"
           value={name}
           onChange={(e) => handleOnChange(e)}
