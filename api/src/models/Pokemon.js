@@ -2,9 +2,6 @@ const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 
-const urlImage =
-  "https://c0.klipartz.com/pngpicture/564/553/gratis-png-dibujos-de-pokemon-go-poke-ball-ash-ketchum-pokemon-go-thumbnail.png";
-
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
@@ -41,7 +38,6 @@ module.exports = (sequelize) => {
       },
       image: {
         type: DataTypes.STRING,
-        defaultValue: urlImage,
       },
       created: {
         type: DataTypes.BOOLEAN,

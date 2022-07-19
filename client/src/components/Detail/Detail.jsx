@@ -16,7 +16,7 @@ export default function Detail() {
     };
   }, [dispatch, id]);
 
-  console.log(details);
+  // console.log(details);
   return (
     <div>
       <div>
@@ -31,9 +31,21 @@ export default function Detail() {
       <div>
         <h2>Types</h2>
         <ul>
-          {details[0]?.types.map((type, i) => (
-            <li key={i}>{type.replace(type[0], type[0].toUpperCase())}</li>
-          ))}
+          {details[0]?.types?.map((type) => {
+            if (typeof type === "string") {
+              return (
+                <li key={type}>
+                  {type.replace(type[0], type[0].toUpperCase())}
+                </li>
+              );
+            } else {
+              return (
+                <li key={type.name}>
+                  {type.name.replace(type.name[0], type.name[0].toUpperCase())}
+                </li>
+              );
+            }
+          })}
         </ul>
       </div>
       <div>
