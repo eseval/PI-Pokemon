@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
-import pokeball from "./../../images/closed_pokeball.png";
+// import pokeball from "./../../images/closed_pokeball.png";
 
 export default function LandingPage() {
   return (

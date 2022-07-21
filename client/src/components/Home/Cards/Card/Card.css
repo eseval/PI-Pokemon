@@ -2,9 +2,9 @@
     text-decoration: none;
     display: flex;
     flex-direction: column;
-    width: 250px;
-    height: 350px;
-    background: rgba(128, 128, 128, 0.532);
+    width: 15%;
+    /* height: 100%; */
+    background: rgba(128, 128, 128, 0.85);
     border: 3px solid #000000;
     border-radius: 15px;
     margin: 1.98em;
@@ -36,13 +36,19 @@
 .img_card:hover {
     width: 180px;
     height: 180px;
-    transition: 1s
+    transition: 1s;
+    margin-bottom: -20px;
+    /* overpass the card when on hover */
+    margin-top: -15px;
+    /* margin-left: -20px; */
+    /* margin-right: -20px; */
+    margin-bottom: -15px;
 }
 
 .link-tittle-card {
     text-decoration: none;
     padding: 5px;
-    color: black;
+    color: red;
     text-shadow: 0 0 0.2em #6E7271, 0 0 0.2em rgb(255, 255, 255);
     transition: border .5s, .5s;
     font-size: small;
@@ -51,4 +57,8 @@
 .link-tittle-card:hover {
     color: #000;
     text-shadow: 0 0 0.2em #2d2b2b, 0 0 0.2em rgb(0, 0, 0);
+}
+
+.body-card {
+    margin-top: -40px;
 }

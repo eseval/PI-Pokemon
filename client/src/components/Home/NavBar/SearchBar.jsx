@@ -29,7 +29,7 @@ export default function SearchBar() {
   return (
     <div>
       <div>
-        <input
+        <input className="input-searchBar"
           type="text"
           // placeholder="Search for a pokemon"
           placeholder="Search for a pokemon"
