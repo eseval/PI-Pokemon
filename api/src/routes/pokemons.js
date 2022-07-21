@@ -58,8 +58,7 @@ const getAllPokemons = async () => {
   try {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDbInfo();
-    const infoTotal = apiInfo.concat(dbInfo);
-    return infoTotal;
+    return apiInfo.concat(dbInfo);
   } catch (error) {
     console.log(error);
   }
