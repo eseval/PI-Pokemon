@@ -1,0 +1,9 @@
+.body-home {
+    background-image: url('./../../images/home-pokemon_2X.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin-top: -23px;
+    margin-bottom: -23px;
+}

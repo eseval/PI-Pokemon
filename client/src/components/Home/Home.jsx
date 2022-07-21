@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 // import { Link } from "react-router-dom";
 import Cards from "./Cards/Cards";
 import "./Home.css";
@@ -7,8 +7,8 @@ import ByType from "./NavBar/Filters/ByType";
 import ByAttack from "./NavBar/Filters/ByAttack";
 import SearchBar from "./NavBar/SearchBar";
 import AlphabeticalOrder from "./NavBar/Filters/AlphabeticalOrder";
-import { getTypes, getPokemons } from "../../actions";
-import { useDispatch, useSelector } from "react-redux";
+import {getPokemons, getTypes} from "../../actions";
+import {useDispatch, useSelector} from "react-redux";
 import Paginated from "./Paginated/Paginated";
 import incubator from "./../../images/incubator.jpg";
 
@@ -46,12 +46,12 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <br />
-      <div><SearchBar /></div>
+    <div className='body-home'>
+      <br/>
+      <div><SearchBar/></div>
 
       <a href="/pokemon">
-        <img src={incubator} alt="create" width="60px" height="60px" />
+        <img src={incubator} alt="create" width="60px" height="60px"/>
       </a>
 
       {/* <Link to="/dog">Create a new Pokemon</Link> */}
@@ -64,10 +64,10 @@ export default function Home() {
         Refresh
       </button>
       <div>
-        <ByAttack />
-        <AlphabeticalOrder />
-        <ByType />
-        <ByCreation />
+        <ByAttack/>
+        <AlphabeticalOrder/>
+        <ByType/>
+        <ByCreation/>
       </div>
       <div>
         <Paginated
@@ -78,9 +78,9 @@ export default function Home() {
         />
       </div>
       <div>
-        <Cards allPokemons={currentPokemons} />
+        <Cards allPokemons={currentPokemons}/>
       </div>
-      <br />
+      <br/>
     </div>
   );
 }

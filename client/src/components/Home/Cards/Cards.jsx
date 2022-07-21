@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card/Card";
 import "./Cards.css";
+import loading from "../../../images/loading-pokeball.gif";
 
 export default function Cards({allPokemons}) {
   // console.log(allPokemons);
@@ -16,9 +17,7 @@ export default function Cards({allPokemons}) {
             id={pokemon.id}
           />
         )) :
-        <div>
-          <h1>No pokemons found</h1>
-        </div>
+        <img className='loading-cards' src={loading} alt="No pokemons found"/>
       }
     </div>
   )
