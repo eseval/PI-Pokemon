@@ -1,28 +1,22 @@
 require("dotenv").config();
-const { key } = process.env;
-const { Router } = require("express");
+const {key} = process.env;
+const {Router} = require("express");
 const router = Router();
-const { Pokemon, Type } = require("../db");
+const {Pokemon, Type} = require("../db");
 const axios = require("axios");
-const { Op } = require("sequelize");
+const {Op} = require("sequelize");
 
 const url = "https://pokeapi.co/api/v2/pokemon";
 
 const getApiInfo = async () => {
-  // const pokeRequest1 = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=17');
-  // const allRequest = pokeRequest1.data.results
   const pokeRequest1 = await axios.get(url);
   const pokeRequest2 = await axios.get(pokeRequest1.data.next);
   const allRequest = pokeRequest1.data.results.concat(
     pokeRequest2.data.results
   );
-  /* ------------------- */
-  // allRequest nos devuelve un array de objetos -- name y url
-  /* ------------------- */
-  // La línea de abajo nos devuelve todas las promesas
   const promises = allRequest.map((e) => axios.get(e.url));
   const allData = await Promise.all(promises);
-  const pokeData = await allData.map((e) => {
+  return allData.map((e) => {
     return {
       id: e.data.id,
       name: e.data.name,
@@ -36,11 +30,10 @@ const getApiInfo = async () => {
       types: e.data.types.map((e) => e.type.name),
     };
   });
-  return pokeData;
 };
 
 const getDbInfo = async () => {
-  const dbInfo = await Pokemon.findAll({
+  return await Pokemon.findAll({
     include: [
       {
         model: Type,
@@ -51,7 +44,6 @@ const getDbInfo = async () => {
       },
     ],
   });
-  return dbInfo;
 };
 
 const getAllPokemons = async () => {
@@ -93,7 +85,7 @@ router.get("/:id", async (req, res, next) => {
         : res.status(404).send("No pokemons found");
     } else {
       let bdDetails = await Pokemon.findAll({
-        where: { id },
+        where: {id},
         include: {
           model: Type,
           attributes: ["id", "name"],
@@ -113,7 +105,7 @@ router.get("/:id", async (req, res, next) => {
 
 
 router.post("/", async (req, res, next) => {
-  const { name, hp, attack, defense, speed, height, weight, image, types } =
+  const {name, hp, attack, defense, speed, height, weight, image, types} =
     req.body;
   try {
     if (name) {
@@ -130,7 +122,7 @@ router.post("/", async (req, res, next) => {
           weight,
           image,
         });
-        const typesDb = await Type.findAll({ where: { name: types } });
+        const typesDb = await Type.findAll({where: {name: types}});
         pokemonsCreated.addType(typesDb);
         return res.send("Pokemon created");
       }

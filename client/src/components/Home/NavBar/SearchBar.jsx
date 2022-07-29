@@ -35,7 +35,7 @@ export default function SearchBar() {
           placeholder="Search for a pokemon"
           value={name}
           onChange={(e) => handleOnChange(e)}
-          onKeyPress={(e) => handleKeyPress(e)}
+          onKeyDown={(e) => handleKeyPress(e)}
         />
         <button type="submit" onClick={(e) => handleSubmit(e)}>
           Search
