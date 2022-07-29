@@ -29,10 +29,6 @@
     text-shadow: 0 0 0.2em #6E7271, 0 0 0.2em rgb(255, 255, 255);
 }
 
-.img_card {
-    padding-bottom: 50px;
-}
-
 .img_card:hover {
     width: 180px;
     height: 180px;
@@ -61,4 +57,5 @@
 
 .body-card {
     margin-top: -40px;
+    margin-bottom: -55px;
 }

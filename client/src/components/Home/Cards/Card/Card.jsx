@@ -12,6 +12,9 @@ export default function Card({image, name, type, attack, id}) {
           <h1>{name.replace(name[0], name[0].toUpperCase())}</h1>
         </Link>
       </div>
+      <div>
+        <h4>Attack: {attack}</h4>
+      </div>
       <img className='img_card'
         src={image ? image : img}
         alt="img not found"
