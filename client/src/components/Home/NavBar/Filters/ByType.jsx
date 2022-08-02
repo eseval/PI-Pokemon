@@ -16,7 +16,7 @@ export default function ByType() {
   return (
     <div>
       <div>By Type</div>
-      <select onChange={handleOnChange}>
+      <select className="byType-filter" onChange={handleOnChange}>
         <option value="All">All</option>
         {types.map((type) => (
           <option key={type.name} value={type.name}>

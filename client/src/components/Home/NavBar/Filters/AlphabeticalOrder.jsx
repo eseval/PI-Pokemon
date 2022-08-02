@@ -14,7 +14,7 @@ export default function AlphabeticalOrder() {
   return (
     <div>
       <div>Alphabetical Order</div>
-      <select onChange={(e) => handleOnChange(e)}>
+      <select className='alphabetical-filter' onChange={(e) => handleOnChange(e)}>
         <option value="All">Default</option>
         <option value="Asc">Ascending</option>
         <option value="Desc">Descending</option>

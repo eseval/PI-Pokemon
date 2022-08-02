@@ -2,11 +2,11 @@ import React from "react";
 import "./Paginated.css";
 
 export default function Paginated({
-  pokemonsPerPage,
-  allPokemons,
-  paginado,
-  currentPage,
-}) {
+                                    pokemonsPerPage,
+                                    allPokemons,
+                                    paginado,
+                                    currentPage,
+                                  }) {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(allPokemons.length / pokemonsPerPage); i++) {
     pageNumbers.push(i);

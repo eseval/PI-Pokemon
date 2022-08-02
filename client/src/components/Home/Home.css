@@ -4,6 +4,25 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    margin-top: -23px;
+    margin-top: -47px;
     margin-bottom: -23px;
+}
+
+.incubator-form {
+    border-radius: 50%;
+    margin-top: 25px;
+}
+
+.filters-home {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    color: white;
+    text-shadow: 2px 2px 2px red;
+    box-shadow: red;
+    border-radius: 30px;
+    margin-right: 60px;
+    margin-left: 60px;
 }

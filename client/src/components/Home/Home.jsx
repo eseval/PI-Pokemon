@@ -49,9 +49,8 @@ export default function Home() {
     <div className='body-home'>
       <br/>
       <div><SearchBar/></div>
-
       <a href="/pokemon">
-        <img src={incubator} alt="create" width="60px" height="60px"/>
+        <img src={incubator} alt="create" width="60px" height="60px" className="incubator-form"/>
       </a>
 
       {/* <Link to="/dog">Create a new Pokemon</Link> */}
@@ -63,11 +62,11 @@ export default function Home() {
       >
         Refresh
       </button>
-      <div>
-        <ByAttack/>
+      <div className="filters-home">
         <AlphabeticalOrder/>
-        <ByType/>
+        <ByAttack/>
         <ByCreation/>
+        <ByType/>
       </div>
       <div>
         <Paginated

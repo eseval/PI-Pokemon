@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { orderByCreation } from "../../../../actions";
+import "./ByCreation.css";
 
 export default function ByCreation() {
 
@@ -14,7 +15,7 @@ export default function ByCreation() {
     return(
         <div>
             <div>By Creation</div>
-            <select onChange={e => handleOnChange(e)}>
+            <select className="byCreation-filter" onChange={e => handleOnChange(e)}>
                 <option value="all">All</option>
                 <option value="api">API</option>
                 <option value="bd">BD</option>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { orderByAttack } from "../../../../actions";
+import './ByAttack.css';
 
 export default function ByAttack() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function ByAttack() {
   return (
     <div>
       <div>By Attack</div>
-      <select onChange={(e) => handleOnChange(e)}>
+      <select className="byAttack-filter" onChange={(e) => handleOnChange(e)}>
         <option value="All">Default</option>
         <option value="Asc">Ascending</option>
         <option value="Desc">Descending</option>

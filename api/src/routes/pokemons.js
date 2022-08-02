@@ -50,7 +50,7 @@ const getAllPokemons = async () => {
   try {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDbInfo();
-    return apiInfo.concat(dbInfo);
+    return dbInfo.concat(apiInfo);
   } catch (error) {
     console.log(error);
   }

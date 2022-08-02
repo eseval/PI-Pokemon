@@ -1,0 +1,86 @@
+.form-container {
+    background-image: url("./../../images/form_2X.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+}
+
+.whole-form {
+    border-radius: 10px;
+    padding: 20px;
+    width: 50%;
+    margin: 10% auto;
+    box-shadow: 0px 0px 10px 0px rgb(255, 255, 255);
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.button-form {
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 4px;
+    background-color: transparent;
+    /*    border color smoke*/
+    border: 1px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+}
+
+.button-form:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+.form-title {
+    color: rgb(255, 255, 255);
+    text-shadow: 10px 10px 10px rgba(0, 0, 0);
+}
+
+.input-name-form {
+    border-radius: 10px;
+    padding: 4px;
+    background-color: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+}
+
+.attributes-form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    color: rgb(255, 255, 255);
+}
+
+.inputs-form {
+    color: rgb(255, 255, 255);
+}
+
+.submit-button {
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 4px;
+    background-color: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+}
+
+.input-image-form {
+    border-radius: 10px;
+    padding: 4px;
+    background-color: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+}
+
+.input-types-form {
+    border-radius: 10px;
+    padding: 4px;
+    background-color: transparent;
+    border: 1px solid rgb(255, 255, 255);
+    color: rgba(0, 0, 0, 0.5);
+}

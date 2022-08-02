@@ -1,0 +1,85 @@
+.detail-whole {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-image: url("./../../images/pokemons_2X.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin-bottom: -221px;
+}
+
+.pokemon-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+}
+
+.detail-name {
+    color: red;
+    text-shadow: whitesmoke 1px 1px 50px;
+}
+
+.detail-types {
+    display: flex;
+    flex-direction: row;
+    text-shadow: whitesmoke 1px 1px 50px;
+}
+
+.detail-attack {
+    display: flex;
+    flex-direction: row;
+    text-shadow: whitesmoke 1px 1px 50px;
+
+}
+
+.detail-defense {
+    display: flex;
+    flex-direction: row;
+    text-shadow: whitesmoke 1px 1px 50px;
+
+}
+
+.detail-speed {
+    display: flex;
+    flex-direction: row;
+    text-shadow: whitesmoke 1px 1px 50px;
+
+}
+
+.detail-hp {
+    display: flex;
+    flex-direction: row;
+    text-shadow: whitesmoke 1px 1px 50px;
+
+}
+
+.detail-weight {
+    display: flex;
+    flex-direction: row;
+    text-shadow: whitesmoke 1px 1px 50px;
+
+}
+
+.detail-height {
+    display: flex;
+    flex-direction: row;
+    text-shadow: whitesmoke 1px 1px 50px;
+
+}
+
+.detail-image {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 30px;
+    width: 200px;
+    height: 200px;
+}
