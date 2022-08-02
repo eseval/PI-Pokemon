@@ -1,14 +1,50 @@
-import React, {useEffect, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
-import {getPokemons, getTypes, postPokemon} from "../../actions";
 import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {getPokemons, getTypes, postPokemon} from "../../actions";
+import {Link, useHistory} from "react-router-dom";
 import "./Form.css";
 
-const Form = () => {
+function validate(input) {
+  let noEmpty = /\S+/;
+  let validateName = /^.{3,15}$/;
+  let errors = {};
+  if (input.name[0] === " ") {
+    errors.name = "Name cannot start with a blank space";
+  } else if (!noEmpty.test(input.name) || !validateName.test(input.name) || input.name.length < 3) {
+    errors.name = "Name must be at least 3 characters and only contain letters";
+  } else if (input.hp < 1 || input.hp > 100) {
+    errors.attack = "Health points must be between 1 and 100";
+  } else if (input.attack < 1 || input.attack > 100) {
+    errors.attack = "Attack points must be between 1 and 100";
+  } else if (input.defense < 1 || input.defense > 100) {
+    errors.defense = "Defense points must be between 1 and 100";
+  } else if (input.speed < 1 || input.speed > 100) {
+    errors.speed = "Speed points must be between 1 and 100";
+  } else if (input.height < 1 || input.height > 100) {
+    errors.height = "Height points must be between 1 and 100";
+  } else if (input.weight < 1 || input.weight > 100) {
+    errors.weight = "Weight points must be between 1 and 100";
+  } else if (input.types === "") {
+    errors.types = "Please select a type";
+  } else if (input.types > 2) {
+    errors.types = "You can only select 2 types";
+  } else if (!(/\.(gif|jpg|jpeg|png)$/).test(input.image)) {
+    input.image && (errors.image = 'Please, this field must be a valid image')
+  }
+  return errors;
+}
+
+export default function Form() {
   const dispatch = useDispatch();
-  const types = useSelector((state) => state.types);
+  const allTypes = useSelector((state) => state.types);
+  // const allPokemons = useSelector((state) => state.pokemons);
   const [errors, setErrors] = useState({});
   const history = useHistory();
+
+  useEffect(() => {
+    dispatch(getTypes());
+    dispatch(getPokemons());
+  }, [dispatch]);
 
   const [input, setInput] = useState({
     name: "",
@@ -20,133 +56,86 @@ const Form = () => {
     weight: "",
     types: [],
     image: "",
-  });
+  })
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(input)
+    dispatch(postPokemon(input))
+    dispatch(getPokemons())
+    alert("Pokemon added successfully")
+    setInput({
+      name: "",
+      hp: "",
+      attack: "",
+      defense: "",
+      speed: "",
+      height: "",
+      weight: "",
+      types: [],
+      image: "",
+    })
+    history.push("/home")
+  }
 
-  let noEmpty = /\S+/;
-  let validateName = /^[a-z]+$/i;
-  let validateNum = /^\d+$/;
-  let validateUrl = /^(ftp|http|https):\/\/[^ "]+$/;
-
-  const validate = (input) => {
-    let errors = {};
-    if (input.name[0] === " ") {
-      errors.name = "Name cannot start with a blank space";
-    } else if (!noEmpty.test(input.name) || !validateName.test(input.name) || input.name.length < 3
-    ) {
-      errors.name =
-        "Name must be at least 3 characters and only contain letters";
-    } else if (!validateNum.test(input.hp) || parseInt(input.hp) < 1) {
-      errors.hp = "Health points must be a positive number";
-    } else if (!validateNum.test(input.attack) || parseInt(input.attack) < 1) {
-      errors.attack = "Attack points must be a positive number";
-    } else if (!validateNum.test(input.defense) || parseInt(input.defense) < 1) {
-      errors.defense = "Defense points must be a positive number";
-    } else if (!validateNum.test(input.speed) || parseInt(input.speed) < 1) {
-      errors.speed = "Speed points must be a positive number";
-    } else if (!validateNum.test(input.height) || parseInt(input.height) < 1) {
-      errors.height = "Height points must be a positive number";
-    } else if (!validateNum.test(input.weight) || parseInt(input.weight) < 1) {
-      errors.weight = "Weight points must be a positive number";
-    } else if (!validateUrl.test(input.image)) {
-      errors.image = "URL required";
-    }
-
-    return errors;
-  };
-
-  const handleChange = (e) => {
+  function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
-    });
-    setErrors(
-      validate({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
-  };
+    })
+    setErrors(validate({
+      ...input,
+      [e.target.name]: e.target.value,
+    }))
+  }
 
-  const handleSelect = (e) => {
-    if (input.types.length < 2) {
+  function handleTypesSelect(e) {
+    if (e.target.checked) {
       setInput({
         ...input,
         types: [...input.types, e.target.value],
-      });
-      e.target.value = "Select type";
+      })
+      setErrors(validate({
+        ...input,
+        types: [...input.types, e.target.value],
+      }))
     } else {
-      alert("Two types of pokemon at most");
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(getPokemons());
-    alert("Pokemon created successfully");
-
-    if (
-      !errors.name &&
-      !errors.hp &&
-      !errors.attack &&
-      !errors.defense &&
-      !errors.speed &&
-      !errors.height &&
-      !errors.weight &&
-      !errors.image
-    ) {
-      dispatch(postPokemon(input));
+      let filteredTypes = [...input.types]
+      filteredTypes.splice(filteredTypes.indexOf(e.target.value), 1)
       setInput({
-        name: "",
-        hp: "",
-        attack: "",
-        defense: "",
-        speed: "",
-        height: "",
-        weight: "",
-        types: [],
-        image: "",
-      });
-      history.push("/home");
-    } else {
-      alert("Error. Check the form");
+        ...input,
+        types: filteredTypes,
+      })
+      setErrors(validate({
+        ...input,
+        types: filteredTypes,
+      }))
     }
-  };
-
-  const handleDelete = (e) => {
-    setInput({
-      ...input,
-      types: input.types.filter((type) => type !== e),
-    });
-  };
-
-  useEffect(() => {
-    dispatch(getTypes());
-  }, [dispatch]);
+  }
 
   return (
     <div className="form-container">
       <div className="whole-form">
-        <Link to="/home">
-          <button className="button-form">Go Back</button>
-        </Link>
-        <form
-          onSubmit={(e) => {
-            handleSubmit(e);
-          }}
-        >
-          <h2 className="form-title">Create a pokemon!</h2>
+        <div>
+          <Link to='/home'>
+            <button>To Home</button>
+          </Link>
+        </div>
+        <h1>Create your Pokemon!</h1>
+        <br/>
+        <form onSubmit={e => handleSubmit(e)}>
           <div>
-            <label className="inputs-form">Name: </label>
-            <input className="input-name-form"
-                   type="text"
-                   value={input.name}
-                   name="name"
-                   onChange={(e) => {
-                     handleChange(e);
-                   }}
-                   placeholder="Name"
-            />
-            <p>{errors.name}</p>
+            <div>
+              <label>Name: </label>
+              <input
+                className="input-name-form"
+                type="text"
+                name="name"
+                value={input.name}
+                onChange={handleChange}
+              />
+              {errors.name && <p className="error">{errors.name}</p>}
+            </div>
+            <br/>
             <div className="attributes-form">
               <div>
                 <label>HP:</label>
@@ -235,55 +224,61 @@ const Form = () => {
                 <p>{errors.weight}</p>
               </div>
             </div>
-            <label className="inputs-form">Image: </label>
-            <input className="input-image-form"
-                   type="url"
-                   value={input.image}
-                   name="image"
-                   onChange={(e) => {
-                     handleChange(e);
-                   }}
-                   placeholder="URL Image..."
-            />
-            <p>{errors.image}</p>
+            <div>
+              <label>Image: </label>
+              <input
+                className="input-image-form"
+                type="text"
+                name="image"
+                value={input.image}
+                placeholder={"Image URL"}
+                onChange={(e) => {
+                  handleChange(e)
+                }}
+              />
+            </div>
+            <div>
+              <label className="types-title-form">Types: </label>
+              <div>
+                {allTypes.map((types, i) => {
+                  return (
+                    <div key={i} className="types-form">
+                      <input
+                        type="checkbox"
+                        id={i}
+                        name={types.name}
+                        value={types.name}
+                        onChange={(e) => {
+                          handleTypesSelect(e)
+                        }}
+                      />
+                      <label>{types.name.replace(types.name[0], types.name[0].toUpperCase())}</label>
+                    </div>
+                  )
+                })}
+                {errors.types && <p className="error">{errors.types}</p>}
+              </div>
+            </div>
+            <div>
+              <input className="input-button-form"
+                type="submit"
+                value={input.created}
+                disabled={Object.keys(errors).length > 0 ||
+                  input.name === "" ||
+                  input.hp === "" ||
+                  input.attack === "" ||
+                  input.defense === "" ||
+                  input.speed === "" ||
+                  input.height === "" ||
+                  input.weight === "" ||
+                  input.types.length === 0 ||
+                  input.types.length > 2
+                }
+              />
+            </div>
           </div>
-          <div>
-            <select className="input-types-form"
-                    onChange={(e) => {
-                      handleSelect(e);
-                    }}
-            >
-              <option>Select the type</option>
-              {types?.map((e) => {
-                return (
-                  <option key={e.id} value={e.name}>
-                    {e.name}
-                  </option>
-                );
-              })}
-            </select>
-            {
-              input.types.map((e) => {
-                return (
-                  <div key={e}>
-                    <p>{e}</p>
-                    <button
-                      onClick={() => {
-                        handleDelete(e);
-                      }}
-                    >
-                      x
-                    </button>
-                  </div>
-                );
-              })
-            }
-          </div>
-          <button className="submit-button" type="submit">Create!</button>
         </form>
       </div>
     </div>
-  );
-};
-
-export default Form;
+  )
+}

@@ -28,6 +28,7 @@ const getApiInfo = async () => {
       weight: e.data.weight,
       image: e.data.sprites.other["official-artwork"].front_default,
       types: e.data.types.map((e) => e.type.name),
+      created: false,
     };
   });
 };
