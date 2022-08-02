@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
-import {getTypes, postPokemon} from "../../actions";
+import {getPokemons, getTypes, postPokemon} from "../../actions";
 import {useDispatch, useSelector} from "react-redux";
 import "./Form.css";
 
-const PokemonCreate = () => {
+const Form = () => {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.types);
   const [errors, setErrors] = useState({});
@@ -81,6 +81,8 @@ const PokemonCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(getPokemons());
+    alert("Pokemon created successfully");
 
     if (
       !errors.name &&
@@ -104,7 +106,6 @@ const PokemonCreate = () => {
         types: [],
         image: "",
       });
-      // dispatch(cleanPokemons(dispatch));
       history.push("/home");
     } else {
       alert("Error. Check the form");
@@ -285,4 +286,4 @@ const PokemonCreate = () => {
   );
 };
 
-export default PokemonCreate;
+export default Form;

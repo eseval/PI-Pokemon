@@ -24,6 +24,12 @@ export default function Home() {
     indexOfLastPokemon
   );
 
+  if(allPokemons.length === 0) {
+    setTimeout(() => {
+      dispatch(getPokemons());
+    }, 5000);
+  }
+
   if (
     currentPage > Math.ceil(allPokemons.length / pokemonsPerPage) &&
     currentPage !== 1
@@ -62,12 +68,15 @@ export default function Home() {
       >
         Refresh
       </button>
+      <br/>
+      <br/>
       <div className="filters-home">
         <AlphabeticalOrder/>
         <ByAttack/>
         <ByCreation/>
         <ByType/>
       </div>
+      <br/>
       <div>
         <Paginated
           pokemonsPerPage={pokemonsPerPage}
