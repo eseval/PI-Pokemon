@@ -10,7 +10,7 @@ import AlphabeticalOrder from "./NavBar/Filters/AlphabeticalOrder";
 import {getPokemons, getTypes} from "../../actions";
 import {useDispatch, useSelector} from "react-redux";
 import Paginated from "./Paginated/Paginated";
-import incubator from "./../../images/incubator.jpg";
+import {Link} from "react-router-dom";
 
 export default function Home() {
   const allPokemons = useSelector((state) => state.pokemons);
@@ -24,7 +24,7 @@ export default function Home() {
     indexOfLastPokemon
   );
 
-  if(allPokemons.length === 0) {
+  if (allPokemons.length === 0) {
     setTimeout(() => {
       dispatch(getPokemons());
     }, 5000);
@@ -54,14 +54,12 @@ export default function Home() {
   return (
     <div className='body-home'>
       <br/>
-      <div><SearchBar/></div>
-      <a href="/pokemon">
-        <img src={incubator} alt="create" width="60px" height="60px" className="incubator-form"/>
-      </a>
-
-      {/* <Link to="/dog">Create a new Pokemon</Link> */}
       <h1>Let's catch them all</h1>
-      <button
+      <div><SearchBar/></div>
+      {/*<br/>*/}
+      <Link to="/dog" className="link-to-form-home">Create a new Pokemon</Link>
+      <br/>
+      <button className="refresh-button-home"
         onClick={(e) => {
           handleClick(e);
         }}

@@ -57,15 +57,45 @@ const getAllPokemons = async () => {
   }
 };
 
+const getApiNames = async (name) => {
+  try {
+    const namesApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const allNames = namesApi.data.map((e) => {
+      return {
+        name: e.name,
+        image: e.sprites.other["official-artwork"].front_default,
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// router.get("/", async (req, res) => {
+//   const name = req.query.name;
+//   const pokemons = await getAllPokemons();
+//   console.log("Pokemons--------: " + pokemons);
+//   if (name) {
+//     const pokemonsName = await pokemons.filter((e) =>
+//       e.name.toLowerCase() === name.toLowerCase()
+//     );
+//     pokemons.length
+//       ? res.status(200).send(pokemonsName)
+//       : res.status(404).send("No pokemons found");
+//   } else {
+//     res.status(200).send(pokemons);
+//   }
+// });
+
 router.get("/", async (req, res) => {
   const name = req.query.name;
   const pokemons = await getAllPokemons();
   // console.log("Pokemons--------: " + pokemons);
   if (name) {
-    const pokemonsName = await pokemons.filter((e) =>
-      e.name.toLowerCase().includes(name.toLowerCase())
+    const pokemonsName = await pokemons.filter(
+      (e) => e.name.toLowerCase() === name
     );
-    pokemons.length
+    pokemonsName.length
       ? res.status(200).send(pokemonsName)
       : res.status(404).send("No pokemons found");
   } else {

@@ -26,3 +26,35 @@
     margin-right: 60px;
     margin-left: 60px;
 }
+
+.link-to-form-home {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 2px red;
+    box-shadow: red;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.refresh-button-home {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-shadow: 2px 2px 2px red;
+    box-shadow: red;
+    border-radius: 30px;
+    margin-right: 60px;
+    margin-left: 60px;
+}
+
+.refresh-button-home:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-shadow: 2px 2px 2px red;
+    box-shadow: red;
+    border-radius: 30px;
+    margin-right: 60px;
+    margin-left: 60px;
+    cursor: pointer;
+}
