@@ -24,12 +24,12 @@ export default function Home() {
     indexOfLastPokemon
   );
 
-  if (allPokemons.length === 0) {
-    setTimeout(() => {
-      dispatch(getPokemons());
-      // console.log("Entré al condicional");
-    }, 8000);
-  }
+  // if (allPokemons.length === 0) {
+  //   setTimeout(() => {
+  //     dispatch(getPokemons());
+  //     // console.log("Entré al condicional");
+  //   }, 8000);
+  // }
 
   if (
     currentPage > Math.ceil(allPokemons.length / pokemonsPerPage) &&

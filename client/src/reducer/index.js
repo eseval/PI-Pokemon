@@ -37,10 +37,10 @@ export default function rootReducer(state = initialState, action) {
         action.payload === "All"
           ? allPokemons
           : allPokemons.filter((e) =>
-              e.types && typeof e.types[0] === "string"
-                ? e.types.includes(action.payload)
-                : e.types && e.types.map((e) => e.name).includes(action.payload)
-            );
+            e.types && typeof e.types[0] === "string"
+              ? e.types.includes(action.payload)
+              : e.types && e.types.map((e) => e.name).includes(action.payload)
+          );
       return {
         ...state,
         pokemons: typesFiltered,
@@ -112,6 +112,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         details: action.payload,
       };
+    case "DELETE_POKEMON":
+      return {
+        ...state,
+        pokemons: state.pokemons.filter(e => e.id !== action.payload),
+        allPokemons: state.allPokemons.filter(e => e.id !== action.payload),
+      }
     default:
       return state;
   }

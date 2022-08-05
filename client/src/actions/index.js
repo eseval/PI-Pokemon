@@ -118,3 +118,13 @@ export function clearState() {
     payload: {},
   };
 }
+
+export function deletePokemon(id) {
+  return async function (dispatch) {
+    await axios.delete(`/pokemons/${id}`);
+    dispatch({
+      type: "DELETE_POKEMON",
+      payload: id,
+    })
+  }
+}

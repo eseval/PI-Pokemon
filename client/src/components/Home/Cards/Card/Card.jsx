@@ -2,9 +2,18 @@ import React from "react";
 import {Link} from "react-router-dom";
 import "./Card.css";
 import img from "../../../../images/unknown.png";
+import {useDispatch} from "react-redux";
+import {deletePokemon} from "../../../../actions";
+
+
 
 export default function Card({image, name, type, attack, id}) {
   // console.log(type);
+  const dispatch = useDispatch();
+  function handleClick(e, id) {
+    e.preventDefault()
+    dispatch(deletePokemon(id))
+  }
   return (
     <div className='card_card'>
       <div className='body-card'>
@@ -26,6 +35,9 @@ export default function Card({image, name, type, attack, id}) {
           if (typeof (type) === 'string') return (<li key={type}>{type.replace(type[0], type[0].toUpperCase())}</li>)
           else return (<li key={type.name}>{type.name.replace(type.name[0], type.name[0].toUpperCase())}</li>)
         })) : 'No types found'}
+      </div>
+      <div>
+        {typeof id === 'string' ? <button onClick={e=> handleClick(e, id)}>Delete</button> : null}
       </div>
     </div>
   );
