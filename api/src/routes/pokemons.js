@@ -33,6 +33,31 @@ const getApiInfo = async () => {
   });
 };
 
+const getApiName = async (name) => {
+  try {
+    const namesApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const results = namesApi.data;
+    const pokemonInfo = {
+      id: results.id,
+      name: results.name,
+      hp: results.stats[0]["base_stat"],
+      attack: results.stats[1]["base_stat"],
+      defense: results.stats[2]["base_stat"],
+      speed: results.stats[5]["base_stat"],
+      height: results.height,
+      weight: results.weight,
+      image: results.sprites.other["official-artwork"].front_default,
+      types: results.types.map((e) => e.type.name),
+      created: false,
+    }
+    return pokemonInfo;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
 const getDbInfo = async () => {
   return await Pokemon.findAll({
     include: [
@@ -71,13 +96,28 @@ const getApiNames = async (name) => {
   }
 }
 
+const getPokemonsById = async (id) => {
+  const apiUrl = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  const pokeData = {
+    id: apiUrl.data.id,
+    name: apiUrl.data.name,
+    hp: apiUrl.data.stats[0]["base_stat"],
+    attack: apiUrl.data.stats[1]["base_stat"],
+    defense: apiUrl.data.stats[2]["base_stat"],
+    speed: apiUrl.data.stats[5]["base_stat"],
+    height: apiUrl.data.height,
+    weight: apiUrl.data.weight,
+    image: apiUrl.data.sprites.other["official-artwork"].front_default,
+    types: apiUrl.data.types.map(e => e.type.name)
+  };
+  return pokeData;
+};
 // router.get("/", async (req, res) => {
 //   const name = req.query.name;
 //   const pokemons = await getAllPokemons();
-//   console.log("Pokemons--------: " + pokemons);
 //   if (name) {
 //     const pokemonsName = await pokemons.filter((e) =>
-//       e.name.toLowerCase() === name.toLowerCase()
+//       e.name.toLowerCase().includes(name.toLowerCase())
 //     );
 //     pokemons.length
 //       ? res.status(200).send(pokemonsName)
@@ -87,52 +127,104 @@ const getApiNames = async (name) => {
 //   }
 // });
 
+// router.get("/", async (req, res) => {
+//   const name = req.query.name;
+//   const pokemons = await getAllPokemons();
+//   // console.log("Pokemons--------: " + pokemons);
+//   if (name) {
+//     const pokemonsName = await pokemons.filter(
+//       (e) => e.name.toLowerCase() === name
+//     );
+//     pokemonsName.length
+//       ? res.status(200).send(pokemonsName)
+//       : res.status(404).send("No pokemons found");
+//   } else {
+//     res.status(200).send(pokemons);
+//   }
+// });
+
+// router.get("/", async (req, res) => {
+//   const name = req.query.name;
+//   if (name) {
+//     const pokemonName = await getApiName(name.toLowerCase());
+//     if (pokemonName) {
+//       return res.status(200).send([pokemonName]);
+//     } else {
+//       const pokemonsDb = await getDbInfo();
+//       const pokemon = pokemonsDb.filter(e => e.name);
+//       return pokemon.length
+//         ? pokemon
+//         : res.status(404).send("Pokemon not found");
+//     }
+//   } else {
+//     const pokemonsTotal = await getAllPokemons();
+//     return res.status(200).send(pokemonsTotal);
+//   }
+// });
+
 router.get("/", async (req, res) => {
   const name = req.query.name;
-  const pokemons = await getAllPokemons();
-  // console.log("Pokemons--------: " + pokemons);
   if (name) {
-    const pokemonsName = await pokemons.filter(
-      (e) => e.name.toLowerCase() === name
-    );
-    pokemonsName.length
-      ? res.status(200).send(pokemonsName)
-      : res.status(404).send("No pokemons found");
+    const pokemonName = await getApiName(name.toLowerCase());
+    if (pokemonName) {
+      return res.status(200).send([pokemonName]);
+    } else {
+      const pokemonsDb = await getApiInfo();
+      const pokemon = pokemonsDb.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
+      return pokemon.length
+        ? pokemon
+        : res.status(404).send("Pokemon not found");
+    }
   } else {
-    res.status(200).send(pokemons);
+    const pokemonsTotal = await getAllPokemons();
+    return res.status(200).send(pokemonsTotal);
   }
 });
 
-router.get("/:id", async (req, res, next) => {
-  const id = req.params.id;
-  const pokemonsTotal = await getAllPokemons();
+router.get('/:id', async (req, res, next) => {
+  const { id } = req.params;
   try {
-    if (!id.includes("-")) {
-      const filterDetails = await pokemonsTotal.filter(
-        (e) => e.id === Number(id)
-      );
-      filterDetails.length
-        ? res.status(200).send(filterDetails)
-        : res.status(404).send("No pokemons found");
-    } else {
-      let bdDetails = await Pokemon.findAll({
-        where: {id},
-        include: {
-          model: Type,
-          attributes: ["id", "name"],
-          through: {
-            attributes: [],
-          },
-        },
-      });
-      bdDetails.length
-        ? res.status(200).send(bdDetails)
-        : res.status(404).send("No pokemons found");
+    if(isNaN(id)){
+      const player = await Pokemon.findByPk(id);
+      res.json(player);
+    }else{
+      res.json(await getPokemonsById(id));
     }
-  } catch (error) {
-    console.log(error);
+  }catch(err) {
+    next(err)
   }
 });
+
+// router.get("/:id", async (req, res, next) => {
+//   const id = req.params.id;
+//   const pokemonsTotal = await getAllPokemons();
+//   try {
+//     if (!id.includes("-")) {
+//       const filterDetails = await pokemonsTotal.filter(
+//         (e) => e.id === Number(id)
+//       );
+//       filterDetails.length
+//         ? res.status(200).send(filterDetails)
+//         : res.status(404).send("No pokemons found");
+//     } else {
+//       let bdDetails = await Pokemon.findAll({
+//         where: {id},
+//         include: {
+//           model: Type,
+//           attributes: ["id", "name"],
+//           through: {
+//             attributes: [],
+//           },
+//         },
+//       });
+//       bdDetails.length
+//         ? res.status(200).send(bdDetails)
+//         : res.status(404).send("No pokemons found");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 
 router.post("/", async (req, res, next) => {

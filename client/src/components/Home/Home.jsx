@@ -27,7 +27,8 @@ export default function Home() {
   if (allPokemons.length === 0) {
     setTimeout(() => {
       dispatch(getPokemons());
-    }, 5000);
+      // console.log("Entré al condicional");
+    }, 8000);
   }
 
   if (
@@ -57,7 +58,7 @@ export default function Home() {
       <h1>Let's catch them all</h1>
       <div><SearchBar/></div>
       {/*<br/>*/}
-      <Link to="/dog" className="link-to-form-home">Create a new Pokemon</Link>
+      <Link to="/pokemon" className="link-to-form-home">Create a new Pokemon</Link>
       <br/>
       <button className="refresh-button-home"
         onClick={(e) => {
