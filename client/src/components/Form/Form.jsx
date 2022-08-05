@@ -59,7 +59,7 @@ export default function Form() {
   })
   const handleSubmit = (e) => {
     e.preventDefault()
-    // console.log(input)
+    console.log(input)
     dispatch(postPokemon(input))
     dispatch(getPokemons())
     alert("Pokemon added successfully")

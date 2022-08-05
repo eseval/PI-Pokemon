@@ -24,12 +24,12 @@ export default function Home() {
     indexOfLastPokemon
   );
 
-  if (allPokemons.length === 0) {
-    setTimeout(() => {
-      dispatch(getPokemons());
-      // console.log("Entré al condicional");
-    }, 8000);
-  }
+  // if (allPokemons.length === 0) {
+  //   setTimeout(() => {
+  //     dispatch(getPokemons());
+  //     // console.log("Entré al condicional");
+  //   }, 8000);
+  // }
 
   if (
     currentPage > Math.ceil(allPokemons.length / pokemonsPerPage) &&
@@ -57,7 +57,7 @@ export default function Home() {
       <br/>
       <h1>Let's catch them all</h1>
       <div><SearchBar/></div>
-      {/*<br/>*/}
+      <br/>
       <Link to="/pokemon" className="link-to-form-home">Create a new Pokemon</Link>
       <br/>
       <button className="refresh-button-home"
@@ -67,8 +67,7 @@ export default function Home() {
       >
         Refresh
       </button>
-      <br/>
-      <br/>
+      <br/><br/>
       <div className="filters-home">
         <AlphabeticalOrder/>
         <ByAttack/>

@@ -181,50 +181,50 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    if(isNaN(id)){
-      const player = await Pokemon.findByPk(id);
-      res.json(player);
-    }else{
-      res.json(await getPokemonsById(id));
-    }
-  }catch(err) {
-    next(err)
-  }
-});
-
-// router.get("/:id", async (req, res, next) => {
-//   const id = req.params.id;
-//   const pokemonsTotal = await getAllPokemons();
+// router.get('/:id', async (req, res, next) => {
+//   const { id } = req.params;
 //   try {
-//     if (!id.includes("-")) {
-//       const filterDetails = await pokemonsTotal.filter(
-//         (e) => e.id === Number(id)
-//       );
-//       filterDetails.length
-//         ? res.status(200).send(filterDetails)
-//         : res.status(404).send("No pokemons found");
-//     } else {
-//       let bdDetails = await Pokemon.findAll({
-//         where: {id},
-//         include: {
-//           model: Type,
-//           attributes: ["id", "name"],
-//           through: {
-//             attributes: [],
-//           },
-//         },
-//       });
-//       bdDetails.length
-//         ? res.status(200).send(bdDetails)
-//         : res.status(404).send("No pokemons found");
+//     if(isNaN(id)){
+//       const player = await Pokemon.findByPk(id);
+//       res.json(player);
+//     }else{
+//       res.json(await getPokemonsById(id));
 //     }
-//   } catch (error) {
-//     console.log(error);
+//   }catch(err) {
+//     next(err)
 //   }
 // });
+
+router.get("/:id", async (req, res, next) => {
+  const id = req.params.id;
+  const pokemonsTotal = await getAllPokemons();
+  try {
+    if (!id.includes("-")) {
+      const filterDetails = await pokemonsTotal.filter(
+        (e) => e.id === Number(id)
+      );
+      filterDetails.length
+        ? res.status(200).send(filterDetails)
+        : res.status(404).send("No pokemons found");
+    } else {
+      let bdDetails = await Pokemon.findAll({
+        where: {id},
+        include: {
+          model: Type,
+          attributes: ["id", "name"],
+          through: {
+            attributes: [],
+          },
+        },
+      });
+      bdDetails.length
+        ? res.status(200).send(bdDetails)
+        : res.status(404).send("No pokemons found");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 
 router.post("/", async (req, res, next) => {

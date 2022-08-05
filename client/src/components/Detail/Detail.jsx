@@ -22,11 +22,11 @@ export default function Detail() {
       <Link to="/home" className="link-to-form-home">Go Back!</Link>
       <div className="pokemon-details">
         <div className="detail-name">
-          <h1>{details?.name?.replace(details.name[0], details.name[0].toUpperCase())}</h1>
+          <h1>{details[0]?.name?.replace(details[0].name[0], details[0].name[0].toUpperCase())}</h1>
         </div>
         <div>
           <img className="detail-image"
-            src={details?.image}
+            src={details[0]?.image}
             alt="pokemon"
             width="200px"
             height="200px"
@@ -35,7 +35,7 @@ export default function Detail() {
         <div className="detail-types">
           <h2>Types</h2>
           <ul>
-            {details?.types?.map((type) => {
+            {details[0]?.types?.map((type) => {
               if (typeof type === "string") {
                 return (
                   <li key={type}>
@@ -53,22 +53,22 @@ export default function Detail() {
           </ul>
         </div>
         <div className="detail-attack">
-          <h2>Attack: {details?.attack}</h2>
+          <h2>Attack: {details[0]?.attack}</h2>
         </div>
         <div className="detail-defense">
-          <h2>Defense: {details?.defense}</h2>
+          <h2>Defense: {details[0]?.defense}</h2>
         </div>
         <div className="detail-speed">
-          <h2>Speed: {details?.speed}</h2>
+          <h2>Speed: {details[0]?.speed}</h2>
         </div>
         <div className="details-hp">
-          <h2>HP: {details?.hp}</h2>
+          <h2>HP: {details[0]?.hp}</h2>
         </div>
         <div className="detail-weight">
-          <h2>Weight: {details?.weight}</h2>
+          <h2>Weight: {details[0]?.weight}</h2>
         </div>
         <div className="detail-height">
-          <h2>Height: {details?.height}</h2>
+          <h2>Height: {details[0]?.height}</h2>
         </div>
       </div>
     </div>
