@@ -57,7 +57,6 @@ const getApiName = async (name) => {
 }
 
 
-
 const getDbInfo = async () => {
   return await Pokemon.findAll({
     include: [
@@ -112,55 +111,6 @@ const getPokemonsById = async (id) => {
   };
   return pokeData;
 };
-// router.get("/", async (req, res) => {
-//   const name = req.query.name;
-//   const pokemons = await getAllPokemons();
-//   if (name) {
-//     const pokemonsName = await pokemons.filter((e) =>
-//       e.name.toLowerCase().includes(name.toLowerCase())
-//     );
-//     pokemons.length
-//       ? res.status(200).send(pokemonsName)
-//       : res.status(404).send("No pokemons found");
-//   } else {
-//     res.status(200).send(pokemons);
-//   }
-// });
-
-// router.get("/", async (req, res) => {
-//   const name = req.query.name;
-//   const pokemons = await getAllPokemons();
-//   // console.log("Pokemons--------: " + pokemons);
-//   if (name) {
-//     const pokemonsName = await pokemons.filter(
-//       (e) => e.name.toLowerCase() === name
-//     );
-//     pokemonsName.length
-//       ? res.status(200).send(pokemonsName)
-//       : res.status(404).send("No pokemons found");
-//   } else {
-//     res.status(200).send(pokemons);
-//   }
-// });
-
-// router.get("/", async (req, res) => {
-//   const name = req.query.name;
-//   if (name) {
-//     const pokemonName = await getApiName(name.toLowerCase());
-//     if (pokemonName) {
-//       return res.status(200).send([pokemonName]);
-//     } else {
-//       const pokemonsDb = await getDbInfo();
-//       const pokemon = pokemonsDb.filter(e => e.name);
-//       return pokemon.length
-//         ? pokemon
-//         : res.status(404).send("Pokemon not found");
-//     }
-//   } else {
-//     const pokemonsTotal = await getAllPokemons();
-//     return res.status(200).send(pokemonsTotal);
-//   }
-// });
 
 router.get("/", async (req, res) => {
   const name = req.query.name;
@@ -181,51 +131,28 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.get('/:id', async (req, res, next) => {
-//   const { id } = req.params;
-//   try {
-//     if(isNaN(id)){
-//       const player = await Pokemon.findByPk(id);
-//       res.json(player);
-//     }else{
-//       res.json(await getPokemonsById(id));
-//     }
-//   }catch(err) {
-//     next(err)
-//   }
-// });
-
-router.get("/:id", async (req, res, next) => {
-  const id = req.params.id;
-  const pokemonsTotal = await getAllPokemons();
+router.get('/:id', async (req, res, next) => {
+  const {id} = req.params;
   try {
-    if (!id.includes("-")) {
-      const filterDetails = await pokemonsTotal.filter(
-        (e) => e.id === Number(id)
-      );
-      filterDetails.length
-        ? res.status(200).send(filterDetails)
-        : res.status(404).send("No pokemons found");
+    if (isNaN(id)) {
+      const player = await Pokemon.findByPk(id,
+        {
+          include: {
+            model: Type,
+            attributes: ["name"],
+            through: {
+              attributes: [],
+            }
+          }
+        })
+      res.json(player);
     } else {
-      let bdDetails = await Pokemon.findAll({
-        where: {id},
-        include: {
-          model: Type,
-          attributes: ["id", "name"],
-          through: {
-            attributes: [],
-          },
-        },
-      });
-      bdDetails.length
-        ? res.status(200).send(bdDetails)
-        : res.status(404).send("No pokemons found");
+      res.json(await getPokemonsById(id));
     }
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    next(err)
   }
 });
-
 
 router.post("/", async (req, res, next) => {
   const {name, hp, attack, defense, speed, height, weight, image, types} =

@@ -24,12 +24,12 @@ function validate(input) {
     errors.height = "Height points must be between 1 and 100";
   } else if (input.weight < 1 || input.weight > 100) {
     errors.weight = "Weight points must be between 1 and 100";
-  } else if (input.types === "") {
-    errors.types = "Please select a type";
-  } else if (input.types > 2) {
-    errors.types = "You can only select 2 types";
   } else if (!(/\.(gif|jpg|jpeg|png)$/).test(input.image)) {
     input.image && (errors.image = 'Please, this field must be a valid image')
+  } else if (input.types.length === 0) {
+    errors.types = "Please select a type";
+  } else if (input.types.length > 2) {
+    errors.types = "You can only select 2 types";
   }
   return errors;
 }
@@ -236,6 +236,7 @@ export default function Form() {
                   handleChange(e)
                 }}
               />
+              {errors.image && <p className="error">{errors.image}</p>}
             </div>
             <div>
               <label className="types-title-form">Types: </label>
@@ -261,19 +262,19 @@ export default function Form() {
             </div>
             <div>
               <input className="input-button-form"
-                type="submit"
-                value={input.created}
-                disabled={Object.keys(errors).length > 0 ||
-                  input.name === "" ||
-                  input.hp === "" ||
-                  input.attack === "" ||
-                  input.defense === "" ||
-                  input.speed === "" ||
-                  input.height === "" ||
-                  input.weight === "" ||
-                  input.types.length === 0 ||
-                  input.types.length > 2
-                }
+                     type="submit"
+                     value={input.created}
+                     disabled={Object.keys(errors).length > 0 ||
+                       input.name === "" ||
+                       input.hp === "" ||
+                       input.attack === "" ||
+                       input.defense === "" ||
+                       input.speed === "" ||
+                       input.height === "" ||
+                       input.weight === "" ||
+                       input.types.length === 0 ||
+                       input.types.length > 2
+                     }
               />
             </div>
           </div>
